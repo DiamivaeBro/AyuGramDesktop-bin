@@ -28,26 +28,29 @@ void initLang()
 	CustomLangPack::currentInstance()->fetchCustomLangPack(langPackId, langPackBaseId);
 }
 
-void initLottie() {
+void initLottie()
+{
 	AyuUi::setLottieImpl(std::make_shared<AyuUi::AyuLottieImpl>());
 }
 
-void initDatabase() {
+void initDatabase()
+{
 	AyuDatabase::initialize();
 }
 
-void initFonts() {
-    auto ayuSettings = AyuSettings::getInstance();
+void initFonts()
+{
+	auto ayuSettings = AyuSettings::getInstance();
 
-    AyuFonts::setCommonFont(ayuSettings.commonFont);
-    AyuFonts::setMonoFont(ayuSettings.monoFont);
+	AyuFonts::setCommonFont(ayuSettings.commonFont);
+	AyuFonts::setMonoFont(ayuSettings.monoFont);
 }
 
 void init()
 {
 	initLang();
 	initLottie();
-    initFonts();
+	initFonts();
 	initDatabase();
 }
 

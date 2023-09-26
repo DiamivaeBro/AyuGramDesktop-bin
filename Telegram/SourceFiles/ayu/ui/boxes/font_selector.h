@@ -21,43 +21,53 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 struct LanguageId;
 struct Font;
 
-namespace Ui {
-    class MultiSelect;
-    struct ScrollToRequest;
-    class VerticalLayout;
+namespace Ui
+{
+
+class MultiSelect;
+struct ScrollToRequest;
+class VerticalLayout;
+
 } // namespace Ui
 
-namespace Window {
-    class SessionController;
+namespace Window
+{
+
+class SessionController;
+
 } // namespace Window
-namespace AyuUi {
-    class FontSelectorBox : public Ui::BoxContent {
-    public:
-        FontSelectorBox(QWidget *, Window::SessionController *controller, Fn<void(QString font)> hook);
+namespace AyuUi
+{
 
-        void setInnerFocus() override;
+class FontSelectorBox: public Ui::BoxContent
+{
+public:
+	FontSelectorBox(QWidget *, Window::SessionController *controller, Fn<void(QString font)> hook);
 
-        static base::binary_guard Show(Window::SessionController *controller, const Fn<void(QString font)> hook);
-    private:
-        QString _selectedFont;
+	void setInnerFocus() override;
 
-    protected:
-        void prepare() override;
+	static base::binary_guard Show(Window::SessionController *controller, const Fn<void(QString font)> hook);
+private:
+	QString _selectedFont;
 
-        void keyPressEvent(QKeyEvent *e) override;
+protected:
+	void prepare() override;
 
-    private:
-        void setupTop(not_null<Ui::VerticalLayout *> container);
+	void keyPressEvent(QKeyEvent *e) override;
 
-        [[nodiscard]] int rowsInPage() const;
+private:
+	void setupTop(not_null<Ui::VerticalLayout *> container);
 
-        Window::SessionController *_controller = nullptr;
-        rpl::event_stream<bool> _translateChatTurnOff;
-        Fn<void()> _setInnerFocus;
-        Fn<Ui::ScrollToRequest(int rows)> _jump;
-        Fn<void(QString font)> _hook;
+	[[nodiscard]] int rowsInPage() const;
 
-    };
+	Window::SessionController *_controller = nullptr;
+	rpl::event_stream<bool> _translateChatTurnOff;
+	Fn<void()> _setInnerFocus;
+	Fn<Ui::ScrollToRequest(int rows)> _jump;
+	Fn<void(QString font)> _hook;
+
+};
+
 }
 
 #endif //TELEGRAM_FONT_SELECTOR_H

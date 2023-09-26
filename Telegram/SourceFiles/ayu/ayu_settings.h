@@ -51,8 +51,8 @@ public:
 		editedMark = tr::lng_edited(tr::now);
 		recentStickersCount = 20;
 		showGhostToggleInDrawer = true;
-        commonFont = "";
-        monoFont = "";
+		commonFont = "";
+		monoFont = "";
 
 		/*
 		 * showPeerId = 0 means no ID shown
@@ -88,8 +88,8 @@ public:
 	QString editedMark;
 	int recentStickersCount;
 	bool showGhostToggleInDrawer;
-    QString commonFont;
-    QString monoFont;
+	QString commonFont;
+	QString monoFont;
 	int showPeerId;
 	bool hideAllChatsFolder;
 	bool showMessageSeconds;
@@ -136,9 +136,9 @@ public:
 
 	void set_showGhostToggleInDrawer(bool val);
 
-    void set_commonFont(QString val);
+	void set_commonFont(QString val);
 
-    void set_monoFont(QString val);
+	void set_monoFont(QString val);
 
 	void set_showPeerId(int val);
 
@@ -173,8 +173,8 @@ NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE_WITH_DEFAULT(
 	editedMark,
 	recentStickersCount,
 	showGhostToggleInDrawer,
-    commonFont,
-    monoFont,
+	commonFont,
+	monoFont,
 	showPeerId,
 	showMessageSeconds,
 	hideAllChatsFolder,
