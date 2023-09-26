@@ -10,6 +10,7 @@
 #include "ayu/sync/ayu_sync_controller.h"
 #include "ayu/ui/boxes/edit_deleted_mark.h"
 #include "ayu/ui/boxes/edit_edited_mark.h"
+#include "ayu/ui/boxes/font_selector.h"
 
 #include "apiwrap.h"
 #include "lang_auto.h"
@@ -989,6 +990,48 @@ void Ayu::SetupExperimental(not_null<Ui::VerticalLayout *> container,
 {
 	AddSubsectionTitle(container, tr::lng_settings_experimental());
 	AddPlatformOption(controller, container, StreamerMode, rpl::producer<>());
+
+    const auto commonButton = AddButtonWithLabel(
+            container,
+            rpl::single(qs("Customise main font")),
+            rpl::single(
+                    AyuSettings::getInstance().commonFont.isEmpty() ? qs("Default") : AyuSettings::getInstance().commonFont
+                    ),
+            st::settingsButtonNoIcon);
+    const auto commonGuard = Ui::CreateChild<base::binary_guard>(commonButton.get());
+
+    commonButton->addClickHandler([=] {
+        const auto m = commonButton->clickModifiers();
+        *commonGuard = AyuUi::FontSelectorBox::Show(controller, [=](QString font) {
+            auto ayuSettings = &AyuSettings::getInstance();
+
+            ayuSettings->set_commonFont(std::move(font));
+            AyuSettings::save();
+        });
+    });
+
+    const auto monoButton = AddButtonWithLabel(
+            container,
+            rpl::single(qs("Customise mono font")),
+            rpl::single(
+                    AyuSettings::getInstance().monoFont.isEmpty() ? qs("Default")
+                    : AyuSettings::getInstance().monoFont
+            ),
+            st::settingsButtonNoIcon);
+    const auto monoGuard = Ui::CreateChild<base::binary_guard>(monoButton.get());
+
+    monoButton->addClickHandler([=] {
+        const auto m = monoButton->clickModifiers();
+        *monoGuard = AyuUi::FontSelectorBox::Show(controller, [=](QString font) {
+            auto ayuSettings = &AyuSettings::getInstance();
+
+            ayuSettings->set_monoFont(std::move(font));
+            AyuSettings::save();
+        });
+    });
+
+
+    AddDividerText(container, rpl::single(qs("Here you can customise fonts for AyuGram")));
 }
 
 void Ayu::SetupAyuGramSettings(not_null<Ui::VerticalLayout *> container,

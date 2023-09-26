@@ -11,6 +11,7 @@
 #include "ayu/ui/ayu_lottie.h"
 #include "ayu/database/ayu_database.h"
 #include "lang/lang_instance.h"
+#include "ayu/ayu_settings.h"
 
 namespace AyuInfra
 {
@@ -35,10 +36,18 @@ void initDatabase() {
 	AyuDatabase::initialize();
 }
 
+void initFonts() {
+    auto ayuSettings = AyuSettings::getInstance();
+
+    AyuFonts::setCommonFont(ayuSettings.commonFont);
+    AyuFonts::setMonoFont(ayuSettings.monoFont);
+}
+
 void init()
 {
 	initLang();
 	initLottie();
+    initFonts();
 	initDatabase();
 }
 
